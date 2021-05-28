@@ -14,7 +14,8 @@ bot.onText(/\/start/, (msg) => {
     console.log(msg)
     bot.sendMessage(
         msg.chat.id,
-        click /predict
+        'hello ${msg.chat.first_name}, welcome..\n
+        click /predict` 
     );   
 });
 
@@ -42,7 +43,7 @@ bot.on('message', (msg) => {
         ).then((jres)=>{
         bot.sendMessage(
             msg.chat.id,
-            'nilai v yang diprediksi adalah ${jres[0]) volt'
+            `nilai v yang diprediksi adalah ${jres[0]) volt`
         );
         bot.sendMessage(
             msg.chat.id,
