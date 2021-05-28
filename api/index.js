@@ -32,7 +32,7 @@ bot.onText(/\/predict/, (msg) => {
 bot.on('message', (msg) => {
     if(state == 1){
         s = msg.text.split("|");
-        1 = s[0]
+        i = s[0]
         v = s[1]
         model.predict(
         [
