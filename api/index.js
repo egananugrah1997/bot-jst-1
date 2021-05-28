@@ -14,7 +14,6 @@ bot.onText(/\/start/, (msg) => {
     console.log(msg)
     bot.sendMessage(
         msg.chat.id,
-        'hello ${msg.chat.first_name}, wellcome..\n
         click /predict'
     );   
 });
