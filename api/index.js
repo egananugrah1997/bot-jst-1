@@ -31,13 +31,13 @@ bot.onText(/\/predict/, (msg) => {
 
 bot.on('message', (msg) => {
     if(state == 1){
-        s = msg.text.split("|");
-        i = s[0]
-        v = s[1]
+        S = msg.text.split("|");
+        i = S[0]
+        v = S[1]
         model.predict(
         [
-            parseFloat(s[0]), //string to float
-            parseFloat(s[1])
+            parseFloat(S[0]), //string to float
+            parseFloat(S[1])
         ]
         ).then((jres)=>{
         bot.sendMessage(
