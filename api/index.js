@@ -14,9 +14,11 @@ bot.onText(/\/start/, (msg) => {
     console.log(msg)
     bot.sendMessage(
         msg.chat.id,
+        'hello ${msg.chat.first_name}, wellcome..\n
         click /predict
     );   
 });
+
 
 state = 0;
 bot.onText(/\/predict/, (msg) => { 
@@ -31,8 +33,8 @@ bot.onText(/\/predict/, (msg) => {
 bot.on('message', (msg) => {
     if(state == 1){
         s = msg.text.split("|");
-        i = S[0]
-        v = S[1]
+        i = s[0]
+        v = s[1]
         model.predict(
         [
             parseFloat(s[0]), //string to float
