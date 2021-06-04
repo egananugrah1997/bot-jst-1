@@ -3,6 +3,8 @@ var r = express.Router();
 
 // load pre-trained model
 const model = require('./sdk/model.js');
+const cls_model = require('./sdk/cls_model.js');
+
 
 // Bot Setting
 const TelegramBot = require('node-telegram-bot-api');
@@ -36,19 +38,30 @@ bot.on('message', (msg) => {
         l = S[0]
         v = S[1]
         model.predict(
-        [
-            parseFloat(S[0]), //string to float
-            parseFloat(S[1])
-        ]
-        ).then((jres)=>{
-        bot.sendMessage(
-            msg.chat.id,
-            `nilai v yang diprediksi adalah ${jres[0]} volt`
-        );
-        bot.sendMessage(
-            msg.chat.id,
-            `nilai p yang diprediksi adalah ${jres[1]} watt`
-        );   
+            [
+                i,
+                r
+            ]
+        ).then((jres1)=>{
+            v = parseFloat(jres1[0])
+            p = parseFloat(jres1[1])
+            
+            cls_model.classify([i, r , v, p]).then((jres2)=>{
+                bot.sendMessage(
+                        msg.chat.id,
+                        `nilai p yang diprediksi adalah ${v} volt`     
+                );
+                bot.sendMessage(
+                    msg.chat.id,
+                    `nilai p yang diprediksi adalah ${p} watt`
+                );
+                bot.sendMessage(
+                        msg.chat.id,
+                        `Klasifikasi Tegangan ${jres2}`     
+        
+                );              
+        })
+        
      })
  }else{
     state = 0
@@ -64,6 +77,14 @@ r.get('/prediction/:i/:r', function(req, res, next) {
             parseFloat(req.params.r)
         ]
     ).then((jres)=>{
+        cls_model.classify(
+            [
+                parseFloat(req.params.i), //string to float
+                parseFloat(req.params.r)
+                parseFloat(jres[0]), //string to float
+                parseFloat(jres[1])
+            ]
+         ).then((jres)=>{
         res.json(jres);
     })
 });
