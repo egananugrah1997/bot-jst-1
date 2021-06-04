@@ -17,6 +17,8 @@ function Argmax (res){
        label = "OVER VOLTAGE"
     }if(argmax(res) == 2){
         label = "Drop VOLTAGE"
+    }
+    return label
 }
 async function classify(data){
     let in_dim = 4;
