@@ -13,7 +13,7 @@ const argMax =  argFact((min, el) => (el[0] > min[0] ? el : min))
 
 function Argmax(res){
     label = "NORMAL"
-    if(argMax(res) ==1){
+    if(argMax(res) == 1){
        label = "OVER VOLTAGE"
     }if(argMax(res) == 2){
         label = "Drop VOLTAGE"
