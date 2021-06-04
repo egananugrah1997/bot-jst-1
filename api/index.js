@@ -23,13 +23,12 @@ bot.onText(/\/start/, (msg) => {
     state = 0;
 });
 
-
-state = 0;
 bot.onText(/\/predict/, (msg) => { 
     bot.sendMessage(
         msg.chat.id,
         `masukan nilai i|v contohnya 9|9`
     );  
+    state = 1;
 });
 
 
