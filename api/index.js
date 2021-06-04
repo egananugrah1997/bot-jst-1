@@ -85,7 +85,8 @@ r.get('/prediction/:i/:r', function(req, res, next) {
                 parseFloat(jres[1])
             ]
          ).then((jres)=>{
-        res.json(jres);
+             res.json(jres);
+         })
     })
 });
 
