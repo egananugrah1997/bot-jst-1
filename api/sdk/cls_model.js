@@ -37,12 +37,13 @@ async function classify(data){
                 tf_data
         );
         result = predict.dataSync();
-        return Argmax ( result );//denormalized( result );
+        return Argmax( result );//denormalized( result );
         
     }catch(e){
       console.log(e);
     }
 }
+
 
 module.exports = {
     classify: classify
