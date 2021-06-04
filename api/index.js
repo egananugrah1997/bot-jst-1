@@ -11,6 +11,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const token = '1810565867:AAHIxGJWega34WTZI_eUDEy7Wv0RQ9npbFc'
 const bot = new TelegramBot(token, {polling: true});
 
+state = 0;
 // bots
 bot.onText(/\/start/, (msg) => { 
     console.log(msg)
@@ -18,7 +19,8 @@ bot.onText(/\/start/, (msg) => {
         msg.chat.id,
         `hello ${msg.chat.first_name}, welcome..\n
         click /predict` 
-    );   
+    );  
+    state = 0;
 });
 
 
@@ -28,15 +30,14 @@ bot.onText(/\/predict/, (msg) => {
         msg.chat.id,
         `masukan nilai i|v contohnya 9|9`
     );  
-    state = 1;
 });
 
 
 bot.on('message', (msg) => {
     if(state == 1){
-        S = msg.text.split("|");
-        l = S[0]
-        v = S[1]
+        s = msg.text.split("|");
+        i = parseFloat(s[0])
+        r = parseFloat(s[1])
         model.predict(
             [
                 i,
@@ -49,7 +50,7 @@ bot.on('message', (msg) => {
             cls_model.classify([i, r , v, p]).then((jres2)=>{
                 bot.sendMessage(
                         msg.chat.id,
-                        `nilai p yang diprediksi adalah ${v} volt`     
+                        `nilai v yang diprediksi adalah ${v} volt`     
                 );
                 bot.sendMessage(
                     msg.chat.id,
@@ -70,6 +71,17 @@ bot.on('message', (msg) => {
 })
 
 // routes
+r.get('/prediction/:i/:r', function(req, res, next) {
+    model.predict(
+        [
+            parseFloat(req.params.i), //string to float
+            parseFloat(req.params.r)
+        ]
+    ).then((jres)=>{
+        res.json(jres);
+    })
+});
+
 r.get('/prediction/:i/:r', function(req, res, next) {
     model.predict(
         [
