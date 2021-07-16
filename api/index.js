@@ -26,7 +26,7 @@ bot.onText(/\/start/, (msg) => {
 bot.onText(/\/predict/, (msg) => { 
     bot.sendMessage(
         msg.chat.id,
-        `masukan nilai i|v contohnya 9|9`
+        `masukan nilai X|Y contohnya 9|9`
     );  
     state = 1;
 });
@@ -46,11 +46,11 @@ bot.on('message', (msg) => {
             cls_model.classify([parseFloat(s[0]), parseFloat(s[1]), parseFloat(jres1[0]), parseFloat(jres1[1])]).then((jres2)=>{
                 bot.sendMessage(
                         msg.chat.id,
-                        `nilai v yang diprediksi adalah ${jres1[0]} volt`     
+                        `nilai v yang diprediksi adalah ${jres1[0]}`     
                 );
                 bot.sendMessage(
                     msg.chat.id,
-                    `nilai p yang diprediksi adalah ${jres1[1]} watt`
+                    `nilai p yang diprediksi adalah ${jres1[1]}`
                 );
                 bot.sendMessage(
                 msg.chat.id,
